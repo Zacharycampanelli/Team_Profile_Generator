@@ -31,7 +31,7 @@ test("Can set a manager's office number through the constructor", () => {
 
 });
 
-test("Can see a manager's role through getRole()", () => {
+test("Can retrieve a manager's role through getRole()", () => {
     const m = new Manager('Steve', 67890, 'steve@company.com', 222);
 
     expect(m.getRole()).toBe('Manager')
