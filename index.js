@@ -10,47 +10,96 @@ const managerQuestions = require('./lib/managerQuestions');
 const engineerQuestions = require('./lib/engineerQuestions');
 const internQuestions = require('./lib/internQuestions');
 
-
 const employees = [];
 
+const typeOfEmployee = {
+  type: 'list',
+  name: 'employeeRole',
+  message: 'What type of employee to add:',
+  choices: ['Engineer', 'Intern'],
+};
 
+const employeeLoop = {
+  type: 'list',
+  name: 'choice',
+  message: 'Choose what you would like to do next:',
+  choices: ['Add an employee', 'Finish'],
+};
 
-
-
-function inputNextChoice () {
-    return inquirer.prompt([
-        // {
-
-        // },
-        {
-            type: 'list',
-            name: 'choice',
-            message: 'Choose what you would like to do next:',
-            choices: ['Add an engineer', 'Add an intern', 'Finish'], 
-        }
-    ])
-    .then((answer) => {
-        if (answer.choice ==='Add an engineer'){
-            promptUser(engineerQuestions);   
-        } else if (answer.choice ==='Add an intern'){
-            promptUser(internQuestions);
-        }
-
+function promptEngineer() {
+    inquirer.prompt(engineerQuestions).then((engineerData) => {
+        let engineer = new Engineer(engineerData.engineerName, engineerData.engineerId, engineerData.engineerEmail, engineerData.engineerGithub);
+        employees.push(engineer)
+        inputNextChoice();
     })
-
 }
 
-function promptUser(questions){
-    return inquirer.prompt(questions);
+function promptIntern() {
+    inquirer.prompt(internQuestions).then((internData) => {
+        let intern = new Intern(internData.internName, internData.internId, internData.internEmail, internData.internSchool);
+        employees.push(intern)
+        console.log(employees)
+    })
+}
+
+
+function addEmployee() {
+  inquirer.prompt(typeOfEmployee).then((currentEmployee) => {
+    if (currentEmployee.employeeRole == 'Engineer') {
+        promptEngineer();
+    } else if (currentEmployee.employeeRole == 'Intern') {
+        promptIntern();
+    } 
+  });
+}
+
+function inputNextChoice() {
+  inquirer
+    .prompt(employeeLoop)
+    .then((answer) => {
+      if (answer.choice === 'Add an employee') {
+        addEmployee();
+      } else if (answer.choice === 'Finish') {
+        console.log('done');
+      }
+    })
+    .then((update) => {
+      console.log(employees);
+    });
+}
+
+function promptUser(questions) {
+  inquirer.prompt(questions);
+}
+
+function promptManager() {
+  inquirer.prompt(managerQuestions).then((managerData) => {
+    let manager = new Manager(
+      managerData.managerName,
+      managerData.managerId,
+      managerData.managerEmail,
+      managerData.managerOffice
+    );
+    employees.push(manager);
+    inputNextChoice();
+  });
 }
 
 function init() {
-    return promptUser(managerQuestions);
-    
+  promptManager();
 }
 
-init()
-.then((managerData) => {
-      employees.push(managerData);
-      inputNextChoice();
-    })
+let temp;
+init();
+//   .then((managerData) => {
+//     console.log(managerData.managerName);
+//     let { managerName, managerId, managerEmail, managerOffice } = managerData;
+//     let temp = new Manager(managerName, managerId, managerEmail, managerOffice);
+//     console.log(temp.getRole());
+//     return temp;
+//   })
+//   .then((data) => {
+//     console.log(data.getRole());
+//     employees.push(inputNextChoice());
+//     //console.log(employees)
+//   });
