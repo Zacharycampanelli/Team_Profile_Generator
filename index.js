@@ -1,96 +1,92 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
-const generateMarkdown = require('./src/generateHTML');
+//const { writeFile, copyFile } = require('./utils/write-file;')
+const generateHTML = require('./src/generateHTML');
 
 const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const managerQuestions = require('./lib/managerQuestions');
-const engineerQuestions = require('./lib/engineerQuestions');
-const internQuestions = require('./lib/internQuestions');
+const employeeQuestions = require('./lib/employeeQuestions');
 
 const employees = [];
 
-const typeOfEmployee = {
-  type: 'list',
-  name: 'employeeRole',
-  message: 'What type of employee to add:',
-  choices: ['Engineer', 'Intern'],
-};
+// const typeOfEmployee = {
+//   type: 'list',
+//   name: 'employeeRole',
+//   message: 'What type of employee to add:',
+//   choices: ['Engineer', 'Intern'],
+// };
 
-const employeeLoop = {
-  type: 'list',
-  name: 'choice',
-  message: 'Choose what you would like to do next:',
-  choices: ['Add an employee', 'Finish'],
-};
+// const employeeLoop = {
+//   type: 'list',
+//   name: 'choice',
+//   message: 'Choose what you would like to do next:',
+//   choices: ['Add an employee', 'Finish'],
+// };
 
-function promptEngineer() {
-    inquirer.prompt(engineerQuestions).then((engineerData) => {
-        let engineer = new Engineer(engineerData.engineerName, engineerData.engineerId, engineerData.engineerEmail, engineerData.engineerGithub);
-        employees.push(engineer)
-        inputNextChoice();
-    })
+async function createWebpage() {
+  const htmlData = await generateHTML(employees);
+  console.log(htmlData);
+
+  // for (let i = 0; i < employees.length; i++) {
+  //   console.log( `${i} ` + employees[i] + employees);
+  // }
+  // generateHTML(employees);
 }
-
-function promptIntern() {
-    inquirer.prompt(internQuestions).then((internData) => {
-        let intern = new Intern(internData.internName, internData.internId, internData.internEmail, internData.internSchool);
-        employees.push(intern)
-        console.log(employees)
-    })
-}
-
 
 function addEmployee() {
-  inquirer.prompt(typeOfEmployee).then((currentEmployee) => {
-    if (currentEmployee.employeeRole == 'Engineer') {
-        promptEngineer();
-    } else if (currentEmployee.employeeRole == 'Intern') {
-        promptIntern();
-    } 
-  });
-}
+  return inquirer.prompt(employeeQuestions).then((currentEmployee) => {
+    if (currentEmployee.currentRole == 'Engineer') {
+      let { name, id, email, github, prompt } = currentEmployee;
+      let engineer = new Engineer(name, id, email, github);
+      employees.push(engineer)
+      console.log(engineer, employees);
+    } else if (currentEmployee.currentRole == 'Intern') {
+      let { name, id, email, school, prompt } = currentEmployee;
+      let intern = new Intern(name, id, email, school);
+      employees.push(intern);
+      console.log(intern, employees);
+    }
 
-function inputNextChoice() {
-  inquirer
-    .prompt(employeeLoop)
-    .then((answer) => {
-      if (answer.choice === 'Add an employee') {
-        addEmployee();
-      } else if (answer.choice === 'Finish') {
-        console.log('done');
-      }
-    })
-    .then((update) => {
+    if (currentEmployee.confirmAdd) {
+      return addEmployee();
+    } else {
       console.log(employees);
-    });
-}
-
-function promptUser(questions) {
-  inquirer.prompt(questions);
-}
-
-function promptManager() {
-  inquirer.prompt(managerQuestions).then((managerData) => {
-    let manager = new Manager(
-      managerData.managerName,
-      managerData.managerId,
-      managerData.managerEmail,
-      managerData.managerOffice
-    );
-    employees.push(manager);
-    inputNextChoice();
+      return employees;
+    }
   });
 }
 
-function init() {
-  promptManager();
+// async function inputNextChoice() {
+//    await inquirer
+//     .prompt(employeeLoop)
+//     .then((answer) => {
+//       if (answer.choice === 'Add an employee') {
+//         addEmployee();
+//       } else if (answer.choice === 'Finish') {
+//         console.log("generating webpage...")
+//       }
+//     })
+//     .then((employees) => {
+//       createWebpage(employees);
+//     });
+// }
+
+function addManager() {
+  return inquirer.prompt(managerQuestions).then((managerData) => {
+    let { name, id, email, office } = managerData;
+    let manager = new Manager(name, id, email, office);
+
+    employees.push(manager);
+    console.log(manager, employees);
+  });
 }
 
-let temp;
-init();
+addManager().then(addEmployee)
+.then(employees => {
+  return generateHTML(employees);
+})
 //   .then((managerData) => {
 //     console.log(managerData.managerName);
 //     let { managerName, managerId, managerEmail, managerOffice } = managerData;
