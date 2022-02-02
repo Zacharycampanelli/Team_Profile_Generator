@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-//const { writeFile, copyFile } = require('./utils/write-file;')
+const { writeFile, copyFile } = require('./utils/write-file')
 const generateHTML = require('./src/generateHTML');
 
 const Employee = require('./lib/Employee');
@@ -25,15 +25,6 @@ const employees = [];
 //   choices: ['Add an employee', 'Finish'],
 // };
 
-async function createWebpage() {
-  const htmlData = await generateHTML(employees);
-  console.log(htmlData);
-
-  // for (let i = 0; i < employees.length; i++) {
-  //   console.log( `${i} ` + employees[i] + employees);
-  // }
-  // generateHTML(employees);
-}
 
 function addEmployee() {
   return inquirer.prompt(employeeQuestions).then((currentEmployee) => {
@@ -83,9 +74,14 @@ function addManager() {
   });
 }
 
-addManager().then(addEmployee)
+addManager()
+.then(addEmployee) 
 .then(employees => {
   return generateHTML(employees);
+}).then(writeToFile => {
+  return writeFile(writeToFile);
+}).then(fileToConsole => {
+  console.log(fileToConsole);
 })
 //   .then((managerData) => {
 //     console.log(managerData.managerName);
