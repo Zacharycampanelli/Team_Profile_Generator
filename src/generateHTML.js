@@ -1,30 +1,67 @@
 function generateManager(data) {
+  return `
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      ${data.name} <br>
+      <i class="fas fa-user-tie"></i> ${data.getRole()}
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${data.id} </li>
+      <li class="list-group-item">Email: ${data.email} </li>
+      <li class="list-group-item">Office Number: ${data.officeNumber} </li>
+    </ul>
+   </div>
+  `   
+}
 
-  
+function generateEngineer(data) {
+  return `
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      ${data.name} <br>
+      <i class="fas fa-laptop-code"></i> ${data.getRole()}
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${data.id} </li>
+      <li class="list-group-item">Email: ${data.email} </li>
+      <li class="list-group-item">Github: ${data.github} </li>
+    </ul>
+   </div>
+  `   
+}
+
+function generateIntern(data) {
+  return `
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      ${data.name} <br>
+      <i class="fas fa-graduation-cap"></i> ${data.getRole()}
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">ID: ${data.id} </li>
+      <li class="list-group-item">Email: ${data.email} </li>
+      <li class="list-group-item">School: ${data.school} </li>
+    </ul>
+   </div>
+  `   
 }
 
 function buildCard(data) {
 
-    // let role = data[0].getRole();
-    // if (role === "Manager") {
-    //   generateManager(data[0])
-    // } else if (role === "Engineer") {
+  let str = '';
 
-    // } else if (role === "Intern") {
+  for(let i = 0; i < data.length; i++) {
+    let role = data[i].getRole();
 
-    // }
-    return  `
-    <div class="card" style="width: 18rem;">
-    <div class="card-header">
-      Featured
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">An item</li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-   </div>
-    `
+    if (role === "Manager") {
+      str += generateManager(data[i]);
+    } else if (role === "Engineer") {
+      str += generateEngineer(data[i]);
+    } else if (role === "Intern") {
+      str += generateIntern(data[i]);
+    }
+}
+    return  str;
 
   }
 
