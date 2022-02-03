@@ -1,0 +1,26 @@
+header {
+  margin: 1.2em auto;
+  max-width: 90%;
+  height: 7em;
+  max-height: 7em;
+  background-color: #131072;
+  
+}
+
+
+
+h1 {
+  font-size: 3em;
+  color: #fff;
+  text-align: center;
+}
+
+.card {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.card-header {
+  color: #fff;
+  background-color: #006f00;
+}

@@ -1,54 +1,60 @@
 function generateManager(data) {
   return `
-  <div class="card" style="width: 18rem;">
+  <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
       ${data.name} <br>
       <i class="fas fa-user-tie"></i> ${data.getRole()}
     </div>
+    <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item">Email: ${data.email} </li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
       <li class="list-group-item">Office Number: ${data.officeNumber} </li>
     </ul>
+    </div>
    </div>
   `   
 }
 
 function generateEngineer(data) {
   return `
-  <div class="card" style="width: 18rem;">
+  <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
       ${data.name} <br>
       <i class="fas fa-laptop-code"></i> ${data.getRole()}
     </div>
+    <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item">Email: ${data.email} </li>
-      <li class="list-group-item">Github: ${data.github} </li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
+      <li class="list-group-item"><a href="https://github.com/${data.github}">Github: ${data.github}</a></li>
     </ul>
+    </div>
    </div>
   `   
 }
 
 function generateIntern(data) {
   return `
-  <div class="card" style="width: 18rem;">
+  <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
       ${data.name} <br>
       <i class="fas fa-graduation-cap"></i> ${data.getRole()}
     </div>
+    <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item">Email: ${data.email} </li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
       <li class="list-group-item">School: ${data.school} </li>
     </ul>
+    </div>
    </div>
   `   
 }
 
 function buildCard(data) {
 
-  let str = '';
+  let str = ``;
 
   for(let i = 0; i < data.length; i++) {
     let role = data[i].getRole();
@@ -87,7 +93,7 @@ function buildCard(data) {
   
     <body>
       <header>
-        <div class="container flex-row justify-space-between align-center py-3">
+        <div class="container flex-row justify-space-between align-center pt-4  mx-auto my-auto">
             <h1>My Team</h1>
         </div>
       </header>

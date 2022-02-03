@@ -2,12 +2,12 @@ const inquirer = require('inquirer');
 const { writeFile, copyFile } = require('./utils/write-file')
 const generateHTML = require('./src/generateHTML');
 
-const Employee = require('./lib/Employee');
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
-const managerQuestions = require('./lib/managerQuestions');
-const employeeQuestions = require('./lib/employeeQuestions');
+const Employee = require('./dist/lib/Employee');
+const Manager = require('./dist/lib/Manager');
+const Engineer = require('./dist/lib/Engineer');
+const Intern = require('./dist/lib/Intern');
+const managerQuestions = require('./dist/lib/managerQuestions');
+const employeeQuestions = require('./dist/lib/employeeQuestions');
 
 const employees = [];
 
