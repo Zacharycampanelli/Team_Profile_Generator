@@ -3,8 +3,8 @@ function generateManager(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
-      ${data.name} <br>
-      <i class="fas fa-user-tie"></i> ${data.getRole()}
+      <h3>${data.name}</h3> <br>
+      <h5><i class="fas fa-user-tie"></i>${data.getRole()}</h5>
     </div>
     <div class="card-body">
     <ul class="list-group list-group-flush">
@@ -24,8 +24,8 @@ function generateEngineer(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
-      ${data.name} <br>
-      <i class="fas fa-laptop-code"></i> ${data.getRole()}
+    <h3>${data.name}</h3> <br>
+      <h5><i class="fas fa-laptop-code"></i>${data.getRole()}</h5>
     </div>
     <div class="card-body">
     <ul class="list-group list-group-flush">
@@ -47,8 +47,8 @@ function generateIntern(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
     <div class="card-header">
-      ${data.name} <br>
-      <i class="fas fa-graduation-cap"></i> ${data.getRole()}
+    <h3>${data.name}</h3> <br>
+      <h5><i class="fas fa-graduation-cap"></i>${data.getRole()}</h5>
     </div>
     <div class="card-body">
     <ul class="list-group list-group-flush">

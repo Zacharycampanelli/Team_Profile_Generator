@@ -33,9 +33,15 @@ A short and simple permissive license with conditions only requiring preservatio
 
 Open a command line in the `lib` folder. Run the command `npm install --save-dev jest` in this folder. In order to run the tests in this folder, simply run `npm test` to run all the tests, or `npm test <object>`, where object is the specific object you wish to run the tests on.
 
+![Test Screenshot](dist/assets/images/Test_Example.png)
+
 ## Questions
 
 If you have any questions, concerns, or comments, feel free to contact me:
 
 -GitHub: [Zacharycampanelli](https://github.com/Zacharycampanelli)  
 -Email: [zaccamp@optonline.net](mailto:zaccamp@optonline.net)
+
+
+## Video Tutorial
+-Tutorial link: [Link to Video](https://watch.screencastify.com/v/1WEpa3B3seXkl4YjugMJ)
