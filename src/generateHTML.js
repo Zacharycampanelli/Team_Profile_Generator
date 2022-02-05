@@ -1,3 +1,4 @@
+// Creates a card for a Manager object
 function generateManager(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
@@ -8,14 +9,17 @@ function generateManager(data) {
     <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${
+    data.email
+  }</a></li>
       <li class="list-group-item">Office Number: ${data.officeNumber} </li>
     </ul>
     </div>
    </div>
-  `   
+  `;
 }
 
+// Creates a card for an Engineer object
 function generateEngineer(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
@@ -26,14 +30,19 @@ function generateEngineer(data) {
     <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
-      <li class="list-group-item"><a href="https://github.com/${data.github}">Github: ${data.github}</a></li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${
+    data.email
+  }</a></li>
+      <li class="list-group-item"><a href="https://github.com/${
+        data.github
+      }">Github: ${data.github}</a></li>
     </ul>
     </div>
    </div>
-  `   
+  `;
 }
 
+// Creates a card for an Intern object
 function generateIntern(data) {
   return `
   <div class="card px-0 mx-1 my-2" style="width: 18rem;">
@@ -44,39 +53,37 @@ function generateIntern(data) {
     <div class="card-body">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">ID: ${data.id} </li>
-      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${data.email}</a></li>
+      <li class="list-group-item"><a href="mailto:${data.email}">Email: ${
+    data.email
+  }</a></li>
       <li class="list-group-item">School: ${data.school} </li>
     </ul>
     </div>
    </div>
-  `   
+  `;
 }
 
+// Creates a card object for each employee in the array
 function buildCard(data) {
-
   let str = ``;
 
-  for(let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     let role = data[i].getRole();
-
-    if (role === "Manager") {
+    // Getting the role of the employee determines what information their card will contain
+    if (role === 'Manager') {
       str += generateManager(data[i]);
-    } else if (role === "Engineer") {
+    } else if (role === 'Engineer') {
       str += generateEngineer(data[i]);
-    } else if (role === "Intern") {
+    } else if (role === 'Intern') {
       str += generateIntern(data[i]);
     }
-}
-    return  str;
-
   }
+  return str;
+}
 
-
-  module.exports = (data) => {
-    // const {name, ...header} = data
-    
-  
-    return  `
+// The start of the html string, takes the data passed through the employees array in index.js
+module.exports = (data) => {
+  return `
     <!DOCTYPE html>
     <html lang="en">
   
@@ -107,7 +114,4 @@ function buildCard(data) {
     </body>
     </html>
     `;
-  }
-
-  
-  
+};
